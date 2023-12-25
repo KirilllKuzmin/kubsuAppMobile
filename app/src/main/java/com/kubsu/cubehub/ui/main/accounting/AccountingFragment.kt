@@ -1,4 +1,4 @@
-package com.kubsu.cubehub.ui.main.home
+package com.kubsu.cubehub.ui.main.accounting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.kubsu.cubehub.databinding.FragmentHomeBinding
+import com.kubsu.cubehub.databinding.FragmentAccountingBinding
 
-class HomeFragment : Fragment() {
+class AccountingFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAccountingBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val accountingViewModel =
+            ViewModelProvider(this).get(AccountingViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textDashboard
+        accountingViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

@@ -77,7 +77,7 @@ class LoginWithPasswordViewModel : ViewModel() {
                 val user = response.body()
 
                 if (user != null && response.code() == 200) {
-                    User.username = user.username
+                    User.username = username
                     User.password = password
                     _loginResult.value = LoginResult(true)
                 }
