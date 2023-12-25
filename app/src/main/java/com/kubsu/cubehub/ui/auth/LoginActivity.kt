@@ -3,13 +3,16 @@ package com.kubsu.cubehub.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.kubsu.cubehub.ui.main.MainActivity
 import com.kubsu.cubehub.R
 import com.kubsu.cubehub.common.User
@@ -21,9 +24,13 @@ import com.kubsu.cubehub.security.CryptographyManagerImpl
 import com.kubsu.cubehub.utils.BiometricPromptUtils
 
 class LoginActivity : AppCompatActivity() {
+
     private val TAG = "LoginActivity"
+
     private lateinit var biometricPrompt: BiometricPrompt
+
     private val cryptographyManager = CryptographyManagerImpl()
+
     private val ciphertextWrapper
         get() = cryptographyManager.getCiphertextWrapperFromSharedPrefs(
             applicationContext,
@@ -31,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
             Context.MODE_PRIVATE,
             CIPHERTEXT_WRAPPER
         )
+
     private lateinit var binding: ActivityLoginBinding
+
     private val loginWithPasswordViewModel by viewModels<LoginWithPasswordViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
+                        intent.putExtra("token", loginResult.token)
                         applicationContext.startActivity(intent)
                     }
                 })
@@ -123,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                 applicationContext.startActivity(intent)
+                finish()
             }
         })
         binding.username.doAfterTextChanged {

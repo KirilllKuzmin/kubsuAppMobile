@@ -22,4 +22,17 @@
         android:name="com.kubsu.cubehub.ui.main.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/AccountingFragment"
+        android:name="com.kubsu.cubehub.ui.main.accounting.AccountingFragment"
+        tools:layout="@layout/fragment_accounting">
+        <action
+            android:id="@+id/action_AccountingFragment_to_ProductsFragment"
+            app:destination="@id/AccountingGroupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AccountingGroupFragment"
+        android:name="com.kubsu.cubehub.ui.main.accounting.accountingGroup.AccountingGroupFragment"
+        tools:layout="@layout/fragment_accounting_group"/>
 </navigation>

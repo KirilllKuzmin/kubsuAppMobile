@@ -1,5 +1,6 @@
 package com.kubsu.cubehub.ui.auth
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginWithPasswordViewModel : ViewModel() {
+
+    private val TAG = "LoginWithPasswordViewModel"
 
     private lateinit var userService : UserService
 
@@ -73,14 +76,17 @@ class LoginWithPasswordViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 initRetrofit()
-                val response = userService.auth(AuthRequest(username, password))
+                val response = userService.authGetToken(AuthRequest(username, password))
                 val user = response.body()
 
                 if (user != null && response.code() == 200) {
                     User.username = username
                     User.password = password
-                    _loginResult.value = LoginResult(true)
+                    User.token = user.token
+                    Log.i(TAG, "${user.username}, ${user.token}")
+                    _loginResult.value = LoginResult(true, user.token)
                 }
+
 
                 _loginResult.value = LoginResult(false)
             } catch (e: Exception) {

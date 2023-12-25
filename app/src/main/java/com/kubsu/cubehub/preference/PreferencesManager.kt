@@ -19,11 +19,22 @@ class PreferencesManager(context: Context) {
             .apply()
     }
 
+    fun saveToken (token: String?) {
+        sharedPreferences
+            .edit()
+            .putString("token", token)
+            .apply()
+    }
+
     fun getUsername(): String? {
         return sharedPreferences.getString("username", null)
     }
 
     fun getPassword(): String? {
         return sharedPreferences.getString("password", null)
+    }
+
+    fun getToken(): String? {
+        return sharedPreferences.getString("token", null)
     }
 }

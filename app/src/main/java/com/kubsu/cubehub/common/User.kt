@@ -18,6 +18,12 @@ object User {
             preferencesManager?.savePassword(value)
         }
 
+    var token: String?
+        get() = preferencesManager?.getToken()
+        set(value) {
+            preferencesManager?.saveToken(value)
+        }
+
     fun init (context: Context) {
         preferencesManager = PreferencesManager(context)
     }
