@@ -52,22 +52,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * The logic is kept inside onResume instead of onCreate so that authorizing biometrics takes
-     * immediate effect.
-     */
     override fun onResume() {
         super.onResume()
 
         if (ciphertextWrapper != null) {
-//            if (SampleAppUser.password == null) {
-//                showBiometricPromptForDecryption()
-//            }
             showBiometricPromptForDecryption()
         }
     }
-
-    // BIOMETRICS SECTION
 
     private fun showBiometricPromptForDecryption() {
         ciphertextWrapper?.let { textWrapper ->
@@ -113,8 +104,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-    // USERNAME + PASSWORD SECTION
 
     private fun setupForLoginWithPassword() {
         loginWithPasswordViewModel.loginWithPasswordFormState.observe(this, Observer { formState ->
