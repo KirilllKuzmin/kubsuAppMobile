@@ -28,7 +28,7 @@
         android:name="com.kubsu.cubehub.ui.main.accounting.AccountingFragment"
         tools:layout="@layout/fragment_accounting">
         <action
-            android:id="@+id/action_AccountingFragment_to_ProductsFragment"
+            android:id="@+id/action_AccountingFragment_to_AccountingGroupFragment"
             app:destination="@id/AccountingGroupFragment" />
     </fragment>
     <fragment

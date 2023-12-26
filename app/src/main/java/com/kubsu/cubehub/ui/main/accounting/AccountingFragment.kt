@@ -1,10 +1,12 @@
 package com.kubsu.cubehub.ui.main.accounting
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -102,6 +104,18 @@ class AccountingFragment : Fragment() {
         adapter = AccountingAdapter()
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
+        adapter.setOnItemClickListener(object : AccountingAdapter.onItemClickListener {
+            @SuppressLint("ResourceType")
+            override fun onItemClick(position: Int) {
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, AccountingGroupFragment())
+                    .addToBackStack(null)
+                    .commit()
+                //findNavController().navigate(R.layout.fragment_accounting_group)
+            }
+        })
     }
 
     private fun navigateToAccountingGroupFragment(selectedItem: Course) {
@@ -113,7 +127,7 @@ class AccountingFragment : Fragment() {
 
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.beginTransaction()
-            .replace(R.id.action_AccountingFragment_to_ProductsFragment, accountingGroupFragment)
+            .replace(R.id.action_AccountingFragment_to_AccountingGroupFragment, accountingGroupFragment)
             .addToBackStack(null)
             .commit()
     }

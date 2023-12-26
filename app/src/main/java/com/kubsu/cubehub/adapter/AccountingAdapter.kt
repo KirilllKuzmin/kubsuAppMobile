@@ -11,8 +11,26 @@ import com.kubsu.cubehub.data.model.Course
 import com.kubsu.cubehub.databinding.ListCourseBinding
 
 class AccountingAdapter : ListAdapter<Course, AccountingAdapter.Holder>(AccountingAdapter.Comparator()) {
-    class Holder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener {
+        fun onItemClick(position : Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
+    }
+
+
+    class Holder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
         private val binding = ListCourseBinding.bind(view)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
 
         fun bind(course: Course) = with(binding) {
             courseTypeTextView.text = course.courseType.name
@@ -34,7 +52,7 @@ class AccountingAdapter : ListAdapter<Course, AccountingAdapter.Holder>(Accounti
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_course, parent, false)
-        return Holder(view)
+        return Holder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

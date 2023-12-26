@@ -132,6 +132,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
+                intent.putExtra("token", loginResult.token)
                 applicationContext.startActivity(intent)
                 finish()
             }
