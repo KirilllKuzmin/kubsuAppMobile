@@ -26,13 +26,27 @@
     <fragment
         android:id="@+id/AccountingFragment"
         android:name="com.kubsu.cubehub.ui.main.accounting.AccountingFragment"
-        tools:layout="@layout/fragment_accounting">
-        <action
-            android:id="@+id/action_AccountingFragment_to_AccountingGroupFragment"
-            app:destination="@id/AccountingGroupFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_accounting"/>
+
+    <action
+        android:id="@+id/action_AccountingFragment_to_AccountingGroupFragment"
+        app:destination="@id/AccountingGroupFragment"
+        app:popUpTo="@id/navigation_dashboard"
+        app:popUpToInclusive="true"/>
+
     <fragment
         android:id="@+id/AccountingGroupFragment"
         android:name="com.kubsu.cubehub.ui.main.accounting.accountingGroup.AccountingGroupFragment"
         tools:layout="@layout/fragment_accounting_group"/>
+
+    <action
+        android:id="@+id/action_AccountingGroupFragment_to_AccountingStudentFragment"
+        app:destination="@id/AccountingStudentFragment"
+        app:popUpTo="@id/navigation_dashboard"
+        app:popUpToInclusive="true"/>
+
+    <fragment
+        android:id="@+id/AccountingStudentFragment"
+        android:name="com.kubsu.cubehub.ui.main.accounting.accountingGroup.accountingStudent.AccountingStudentFragment"
+        tools:layout="@layout/fragment_accounting_student"/>
 </navigation>

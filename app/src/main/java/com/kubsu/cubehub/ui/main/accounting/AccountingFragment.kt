@@ -100,7 +100,6 @@ class AccountingFragment : Fragment() {
     }
 
     private fun initRcView() = with(binding) {
-        //val recyclerView = view?.findViewById<RecyclerView>(R.id.rcView)
         adapter = AccountingAdapter()
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
@@ -108,28 +107,12 @@ class AccountingFragment : Fragment() {
             @SuppressLint("ResourceType")
             override fun onItemClick(position: Int) {
 
-                val fragmentManager = requireActivity().supportFragmentManager
-                fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, AccountingGroupFragment())
-                    .addToBackStack(null)
-                    .commit()
-                //findNavController().navigate(R.layout.fragment_accounting_group)
+                val bundle = Bundle()
+                bundle.putInt("coursePosition", position)
+
+                findNavController().navigate(R.id.action_AccountingFragment_to_AccountingGroupFragment, bundle)
             }
         })
-    }
-
-    private fun navigateToAccountingGroupFragment(selectedItem: Course) {
-        val bundle = Bundle()
-        bundle.putLong("id", selectedItem.id)
-
-        val accountingGroupFragment = AccountingGroupFragment()
-        accountingGroupFragment.arguments = bundle
-
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction()
-            .replace(R.id.action_AccountingFragment_to_AccountingGroupFragment, accountingGroupFragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     override fun onDestroyView() {

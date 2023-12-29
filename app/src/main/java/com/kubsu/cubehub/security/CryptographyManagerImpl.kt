@@ -53,12 +53,10 @@ class CryptographyManagerImpl : CryptographyManager {
     }
 
     private fun getOrCreateSecretKey(keyName: String): SecretKey {
-        // If Secretkey was previously created for that keyName, then grab and return it.
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
-        keyStore.load(null) // Keystore must be loaded before it can be accessed
+        keyStore.load(null)
         keyStore.getKey(keyName, null)?.let { return it as SecretKey }
 
-        // if you reach here, then a new SecretKey must be generated for that keyName
         val paramsBuilder = KeyGenParameterSpec.Builder(
             keyName,
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
